@@ -2,15 +2,25 @@
 
 import { jobs } from '@/data/jobs'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-type Props = { params: { id: string } }
+type Props = { 
+  params: Promise<{ id: string }> 
+}
 
 export default function JobDetail({ params }: Props) {
-  const job = jobs.find(j => j.id === params.id)
+  const [jobId, setJobId] = useState<string>('')
   const [showPhoneModal, setShowPhoneModal] = useState(false)
   
-  if (!job) return <div>求人が見つかりません</div>
+  useEffect(() => {
+    params.then(resolvedParams => {
+      setJobId(resolvedParams.id)
+    })
+  }, [params])
+
+  const job = jobs.find(j => j.id === jobId)
+  
+  if (!jobId || !job) return <div>求人が見つかりません</div>
 
   // 関連求人を取得
   const relatedJobs = jobs

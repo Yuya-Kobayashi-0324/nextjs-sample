@@ -2,9 +2,11 @@
 
 import { jobs } from '@/data/jobs'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-type Props = { params: { id: string } }
+type Props = { 
+  params: Promise<{ id: string }> 
+}
 
 type FormData = {
   name: string
@@ -20,7 +22,7 @@ type FormData = {
 type Step = 'input' | 'confirm' | 'complete'
 
 export default function JobApply({ params }: Props) {
-  const job = jobs.find(j => j.id === params.id)
+  const [jobId, setJobId] = useState<string>('')
   const [step, setStep] = useState<Step>('input')
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -33,7 +35,15 @@ export default function JobApply({ params }: Props) {
     comment: ''
   })
 
-  if (!job) return <div>求人が見つかりません</div>
+  useEffect(() => {
+    params.then(resolvedParams => {
+      setJobId(resolvedParams.id)
+    })
+  }, [params])
+
+  const job = jobs.find(j => j.id === jobId)
+  
+  if (!jobId || !job) return <div>求人が見つかりません</div>
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target

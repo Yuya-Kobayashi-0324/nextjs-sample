@@ -44,8 +44,8 @@ export default function SessionInitializer() {
           const grouping = calculateGrouping(userUuid)
           
           // GTM dataLayerにプッシュ
-          if (typeof window !== 'undefined' && typeof (window as any).dataLayer !== 'undefined') {
-            (window as any).dataLayer.push({
+          if (typeof window !== 'undefined' && typeof (window as unknown as { dataLayer: unknown[] }).dataLayer !== 'undefined') {
+            (window as unknown as { dataLayer: unknown[] }).dataLayer.push({
               event: 'user_identified',
               user_uuid: userUuid,
               user_group: grouping.firstDigitGroup,
@@ -57,8 +57,9 @@ export default function SessionInitializer() {
           }
           
           // Google Analytics 4
-          if (typeof window !== 'undefined' && typeof (window as any).gtag !== 'undefined') {
-            (window as any).gtag('config', 'GA_MEASUREMENT_ID', {
+          const gtag = (window as unknown as { gtag?: (command: string, targetId: string, config?: Record<string, unknown>) => void }).gtag;
+          if (typeof window !== 'undefined' && gtag) {
+            gtag('config', 'GA_MEASUREMENT_ID', {
               user_id: userUuid,
               custom_map: {
                 'user_group': 'user_group',
@@ -68,7 +69,7 @@ export default function SessionInitializer() {
             })
             
             // カスタムイベントとしても送信
-            (window as any).gtag('event', 'user_group_assigned', {
+            gtag('event', 'user_group_assigned', {
               user_id: userUuid,
               user_group: grouping.firstDigitGroup,
               first_digit_even: grouping.isFirstDigitEven,
