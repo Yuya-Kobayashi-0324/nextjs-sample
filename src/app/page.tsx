@@ -30,17 +30,27 @@ export default function Home() {
       </header>
 
       {/* ヒーローセクション */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+      <section
+        className="relative text-white py-20"
+        style={{
+          backgroundImage: "url('/images/main-bg.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        {/* グラデーションオーバーレイ - テキストの可読性向上 */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent pointer-events-none" aria-hidden="true"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white drop-shadow-2xl">
             あなたにぴったりのお仕事が見つかります
           </h1>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-8 text-white/95 drop-shadow-lg">
             未経験OK、寮付き、日払い対応の派遣求人情報
           </p>
           <Link 
             href="/jobs" 
-            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-block bg-white/95 backdrop-blur-sm text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-white transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
           >
             求人一覧を見る
           </Link>
