@@ -1,102 +1,52 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import FavoriteButton from '@/components/FavoriteButton';
+import { getFavorites, FavoriteJob } from '@/utils/favorites';
 
-interface Job {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  salary: string;
-  description: string;
-  category: string;
-  features: string[];
-  image?: string;
-}
-
-interface JobsListClientProps {
-  initialJobs: Job[];
-  totalJobs: number;
-  currentPage: number;
-  searchQuery: string;
-}
-
-export default function JobsListClient({ 
-  initialJobs, 
-  totalJobs, 
-  currentPage, 
-  searchQuery 
-}: JobsListClientProps) {
-  const [jobs, setJobs] = useState<Job[]>(initialJobs);
-  const [searchTerm, setSearchTerm] = useState(searchQuery);
-  const [isLoading, setIsLoading] = useState(false);
-  const searchParams = useSearchParams();
+export default function FavoritesPage() {
+  const [favorites, setFavorites] = useState<FavoriteJob[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const jobsPerPage = 10;
-  const totalPages = Math.ceil(totalJobs / jobsPerPage);
 
-  // URLパラメータからフィルター情報を取得
-  const category = searchParams.get('category');
-  const feature = searchParams.get('feature');
+  const loadFavorites = () => {
+    const favs = getFavorites();
+    setFavorites(favs);
+    setIsLoading(false);
+  };
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    try {
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (category) params.append('category', category);
-      if (feature) params.append('feature', feature);
-      params.append('page', '1');
-      
-      const response = await fetch(`/api/jobs?${params.toString()}`);
-      const data = await response.json();
-      
-      setJobs(data.jobs);
-      // URLを更新
-      const newUrl = `/jobs?${params.toString()}`;
-      window.history.pushState({}, '', newUrl);
-    } catch (error) {
-      console.error('検索エラー:', error);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    loadFavorites();
+  }, []);
+
+  // お気に入りが削除された際の処理
+  const handleFavoriteRemoved = () => {
+    loadFavorites();
+    // 現在のページが空になった場合、前のページに移動
+    const totalPages = Math.ceil((favorites.length - 1) / jobsPerPage);
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
     }
   };
 
-  const handlePageChange = async (page: number) => {
-    setIsLoading(true);
-    
-    try {
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (category) params.append('category', category);
-      if (feature) params.append('feature', feature);
-      params.append('page', page.toString());
-      
-      const response = await fetch(`/api/jobs?${params.toString()}`);
-      const data = await response.json();
-      
-      setJobs(data.jobs);
-      // URLを更新
-      const newUrl = `/jobs?${params.toString()}`;
-      window.history.pushState({}, '', newUrl);
-    } catch (error) {
-      console.error('ページ変更エラー:', error);
-    } finally {
-      setIsLoading(false);
-    }
+  // ページネーション
+  const totalPages = Math.ceil(favorites.length / jobsPerPage);
+  const startIndex = (currentPage - 1) * jobsPerPage;
+  const endIndex = startIndex + jobsPerPage;
+  const currentFavorites = favorites.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
       <Header />
-
-      {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* パンくず */}
         <nav className="mb-8">
@@ -104,93 +54,41 @@ export default function JobsListClient({
             ホーム
           </Link>
           <span className="mx-2 text-gray-400">/</span>
-          <span className="text-blue-600">求人一覧</span>
-          {(category || feature) && (
-            <>
-              <span className="mx-2 text-gray-400">/</span>
-              <span className="text-blue-600">
-                {category && `業界: ${category}`}
-                {feature && `特徴: ${feature}`}
-              </span>
-            </>
-          )}
+          <span className="text-blue-600">お気に入り</span>
         </nav>
 
         {/* ページタイトル */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            求人一覧
+            お気に入り一覧
           </h1>
           <p className="text-xl text-gray-600">
-            {totalJobs}件の求人情報から、あなたにぴったりのお仕事を見つけましょう
+            {favorites.length}件のお気に入り求人
           </p>
-          {(category || feature) && (
-            <div className="mt-4">
-              <Link 
-                href="/jobs" 
-                className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
-              >
-                ✕ フィルターをクリア
-              </Link>
-            </div>
-          )}
         </div>
 
-        {/* 検索・フィルター */}
-        <section className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 mb-12 border border-blue-100">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-            <span className="mr-3">🔍</span>
-            検索・絞り込み
-          </h2>
-          
-          {/* 検索バー */}
-          <div className="mb-8">
-            <form onSubmit={handleSearch} className="relative">
-              <input
-                type="text"
-                placeholder="職種、会社名、勤務地で検索..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="absolute inset-y-0 right-0 px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                {isLoading ? '検索中...' : '検索'}
-              </button>
-            </form>
-          </div>
-        </section>
-
-        {/* 求人一覧 */}
+        {/* お気に入り一覧 */}
         <section>
           {isLoading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
               <p className="mt-2 text-gray-600">読み込み中...</p>
             </div>
-          ) : jobs.length === 0 ? (
+          ) : favorites.length === 0 ? (
             <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">該当する求人が見つかりません</h3>
-              <p className="text-gray-600 mb-6">条件を変更して再度お試しください</p>
+              <div className="text-6xl mb-4">♡</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">お気に入りがありません</h3>
+              <p className="text-gray-600 mb-6">求人一覧からお気に入りを追加してください</p>
               <Link 
                 href="/jobs" 
                 className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
               >
-                全ての求人を見る
+                求人一覧を見る
               </Link>
             </div>
           ) : (
             <div className="space-y-6">
-              {jobs.map(job => (
+              {currentFavorites.map(job => (
                 <article key={job.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group">
                   <div className="p-8">
                     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
@@ -200,6 +98,9 @@ export default function JobsListClient({
                             {job.category}
                           </span>
                           <span className="text-sm text-gray-500">#{job.id}</span>
+                          <span className="ml-auto text-sm text-gray-500">
+                            {new Date(job.addedAt).toLocaleDateString('ja-JP')}
+                          </span>
                         </div>
                         <h3 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
                           {job.title}
@@ -242,7 +143,11 @@ export default function JobsListClient({
                       >
                         📖 詳細を見る
                       </Link>
-                      <FavoriteButton job={job} />
+                      <FavoriteButton 
+                        job={job} 
+                        showDeleteConfirm={true}
+                        onFavoriteRemoved={handleFavoriteRemoved}
+                      />
                     </div>
                   </div>
                 </article>
@@ -284,7 +189,7 @@ export default function JobsListClient({
               </button>
             </div>
             <p className="text-gray-600 mt-4">
-              {(currentPage - 1) * jobsPerPage + 1} - {Math.min(currentPage * jobsPerPage, totalJobs)} / {totalJobs}件
+              {startIndex + 1} - {Math.min(endIndex, favorites.length)} / {favorites.length}件
             </p>
           </section>
         )}
