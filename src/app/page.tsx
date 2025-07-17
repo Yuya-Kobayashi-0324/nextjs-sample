@@ -204,6 +204,27 @@ export default function Home() {
               記事を読む
             </Link>
           </div>
+          
+          {/* Optimize Next テスト用リンク */}
+          <div className="mt-8 pt-8 border-t border-blue-200">
+            <h3 className="text-lg font-semibold text-gray-700 mb-4">
+              🧪 Optimize Next テスト用ページ
+            </h3>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link 
+                href="/hydration-test" 
+                className="inline-block bg-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors"
+              >
+                ハイドレーションテスト
+              </Link>
+              <Link 
+                href="/ssg-test" 
+                className="inline-block bg-orange-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors"
+              >
+                SSGテスト
+              </Link>
+            </div>
+          </div>
         </section>
       </main>
 
