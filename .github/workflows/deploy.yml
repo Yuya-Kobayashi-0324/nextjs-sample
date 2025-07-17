@@ -24,5 +24,7 @@ jobs:
           git pull origin main
           npm install
           npm run build
-          pm2 restart nextjs-app
+          pm2 stop nextjs-app || true
+          pm2 delete nextjs-app || true
+          pm2 start npm --name "nextjs-app" -- start
           echo "Deployment completed successfully"
