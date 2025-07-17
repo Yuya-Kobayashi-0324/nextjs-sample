@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
     - uses: actions/checkout@v4
     
@@ -17,14 +17,25 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
-        timeout: 10m
-        command_timeout: 10m
+        timeout: 15m
+        command_timeout: 15m
+        debug: true
         script: |
+          echo "Starting deployment process..."
           cd /home/admin/nextjs-sample
+          echo "Current directory: $(pwd)"
+          echo "Pulling latest changes..."
           git pull origin main
+          echo "Installing dependencies..."
           npm install
+          echo "Building application..."
           npm run build
-          pm2 stop nextjs-app || true
-          pm2 delete nextjs-app || true
+          echo "Stopping PM2 process..."
+          pm2 stop nextjs-app || echo "No PM2 process to stop"
+          echo "Deleting PM2 process..."
+          pm2 delete nextjs-app || echo "No PM2 process to delete"
+          echo "Starting PM2 process..."
           pm2 start npm --name "nextjs-app" -- start
+          echo "PM2 status:"
+          pm2 status
           echo "Deployment completed successfully"
