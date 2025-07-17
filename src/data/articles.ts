@@ -10,7 +10,7 @@ export type Article = {
   tags: string[];
 }
 
-export const articles: Article = [
+export const articles: Article[] = [
   {
     id: "1",
     title: "未経験から製造業で働くための完全ガイド",

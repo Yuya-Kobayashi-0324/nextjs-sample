@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import FavoriteButton from '@/components/FavoriteButton';
 import { categories, features } from '@/data/jobs';
@@ -37,7 +36,6 @@ export default function JobsListClient({
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const searchParams = useSearchParams();
 
   const jobsPerPage = 10;
   const totalPages = Math.ceil(totalJobs / jobsPerPage);
