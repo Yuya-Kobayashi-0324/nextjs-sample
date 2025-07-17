@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
     - uses: actions/checkout@v4
     
@@ -16,9 +17,12 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
+        timeout: 10m
+        command_timeout: 10m
         script: |
           cd /home/admin/nextjs-sample
           git pull origin main
           npm install
           npm run build
           pm2 restart nextjs-app
+          echo "Deployment completed successfully"
