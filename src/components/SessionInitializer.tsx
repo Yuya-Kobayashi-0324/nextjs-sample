@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 // dataLayerの型定義
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: Record<string, unknown>[];
   }
 }
 

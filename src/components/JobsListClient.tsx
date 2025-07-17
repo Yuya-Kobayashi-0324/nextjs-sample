@@ -42,9 +42,7 @@ export default function JobsListClient({
   const jobsPerPage = 10;
   const totalPages = Math.ceil(totalJobs / jobsPerPage);
 
-  // URLパラメータからフィルター情報を取得
-  const category = searchParams.get('category');
-  const feature = searchParams.get('feature');
+  // URLパラメータからフィルター情報を取得（現在は使用していない）
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
