@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const search = searchParams.get('search');
   const page = searchParams.get('page');
   const category = searchParams.get('category');
-  const feature = searchParams.get('feature');
+  const features = searchParams.getAll('feature'); // 複数の特徴を取得
 
   // ページネーション設定
   const jobsPerPage = 10;
@@ -20,9 +20,11 @@ export async function GET(request: NextRequest) {
     filteredJobs = filteredJobs.filter(job => job.category === category);
   }
 
-  // 特徴フィルター
-  if (feature) {
-    filteredJobs = filteredJobs.filter(job => job.features.includes(feature));
+  // 特徴フィルター（複数対応）
+  if (features.length > 0) {
+    filteredJobs = filteredJobs.filter(job => 
+      features.every(feature => job.features.includes(feature))
+    );
   }
 
   // 検索フィルター
@@ -30,7 +32,8 @@ export async function GET(request: NextRequest) {
     filteredJobs = filteredJobs.filter(job => 
       job.title.toLowerCase().includes(search.toLowerCase()) ||
       job.company.toLowerCase().includes(search.toLowerCase()) ||
-      job.location.toLowerCase().includes(search.toLowerCase())
+      job.location.toLowerCase().includes(search.toLowerCase()) ||
+      job.description.toLowerCase().includes(search.toLowerCase())
     );
   }
 
@@ -46,6 +49,11 @@ export async function GET(request: NextRequest) {
     currentPage,
     totalPages: Math.ceil(totalJobs / jobsPerPage),
     hasNextPage: endIndex < totalJobs,
-    hasPrevPage: currentPage > 1
+    hasPrevPage: currentPage > 1,
+    appliedFilters: {
+      search,
+      category,
+      features
+    }
   });
 } 

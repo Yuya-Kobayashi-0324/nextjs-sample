@@ -510,6 +510,506 @@ export const jobs: Job[] = [
     description: '自動車変速機の経験者歓迎。',
     category: '自動車業界',
     features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '51',
+    title: '電池製造',
+    company: 'パナソニック',
+    location: '大阪',
+    salary: '月収32万円以上',
+    description: '電池製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '52',
+    title: '製菓',
+    company: 'ロッテ',
+    location: '東京',
+    salary: '月収26万円以上',
+    description: '製菓の経験者歓迎。',
+    category: '食品業界',
+    features: ['経験者歓迎', '福利厚生充実', '交通費支給']
+  },
+  {
+    id: '53',
+    title: '鉄道車両製造',
+    company: '川崎重工業',
+    location: '兵庫',
+    salary: '月収35万円以上',
+    description: '鉄道車両製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '54',
+    title: '国際配送',
+    company: 'フェデックス',
+    location: '東京',
+    salary: '月収29万円以上',
+    description: '国際配送の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '55',
+    title: '自動車サスペンション',
+    company: 'KYB',
+    location: '群馬',
+    salary: '月収31万円以上',
+    description: '自動車サスペンションの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '56',
+    title: 'カメラ製造',
+    company: 'キヤノン',
+    location: '東京',
+    salary: '月収30万円以上',
+    description: 'カメラ製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '57',
+    title: '製油',
+    company: 'JXTGエネルギー',
+    location: '千葉',
+    salary: '月収34万円以上',
+    description: '製油の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '58',
+    title: '冷蔵配送',
+    company: '日本通運',
+    location: '神奈川',
+    salary: '月収28万円以上',
+    description: '冷蔵配送の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '59',
+    title: '自動車エアコン',
+    company: 'デンソー',
+    location: '愛知',
+    salary: '月収32万円以上',
+    description: '自動車エアコンの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '60',
+    title: 'プリンター製造',
+    company: 'エプソン',
+    location: '長野',
+    salary: '月収29万円以上',
+    description: 'プリンター製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '61',
+    title: '医薬品製造',
+    company: '武田薬品',
+    location: '大阪',
+    salary: '月収33万円以上',
+    description: '医薬品製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '62',
+    title: '宅配便',
+    company: 'ヤマト運輸',
+    location: '東京',
+    salary: '月収27万円以上',
+    description: '宅配便の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '63',
+    title: '自動車ラジエーター',
+    company: 'デンソー',
+    location: '愛知',
+    salary: '月収30万円以上',
+    description: '自動車ラジエーターの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '64',
+    title: 'テレビ製造',
+    company: 'シャープ',
+    location: '大阪',
+    salary: '月収31万円以上',
+    description: 'テレビ製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '65',
+    title: '化粧品製造',
+    company: '資生堂',
+    location: '神奈川',
+    salary: '月収28万円以上',
+    description: '化粧品製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '66',
+    title: '航空貨物取扱',
+    company: '全日空',
+    location: '成田',
+    salary: '月収29万円以上',
+    description: '航空貨物取扱の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '67',
+    title: '自動車ホイール',
+    company: 'エンケイ',
+    location: '愛知',
+    salary: '月収31万円以上',
+    description: '自動車ホイールの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '68',
+    title: 'スマートフォン製造',
+    company: 'ソニー',
+    location: '東京',
+    salary: '月収32万円以上',
+    description: 'スマートフォン製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '69',
+    title: '石鹸製造',
+    company: '花王',
+    location: '神奈川',
+    salary: '月収27万円以上',
+    description: '石鹸製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '70',
+    title: '海上輸送',
+    company: '商船三井',
+    location: '横浜',
+    salary: '月収30万円以上',
+    description: '海上輸送の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '71',
+    title: '自動車シート',
+    company: 'トヨタ紡織',
+    location: '愛知',
+    salary: '月収29万円以上',
+    description: '自動車シートの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '72',
+    title: 'ゲーム機製造',
+    company: '任天堂',
+    location: '京都',
+    salary: '月収31万円以上',
+    description: 'ゲーム機製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '73',
+    title: '洗剤製造',
+    company: 'ライオン',
+    location: '東京',
+    salary: '月収26万円以上',
+    description: '洗剤製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '74',
+    title: '鉄道貨物',
+    company: 'JR貨物',
+    location: '大阪',
+    salary: '月収28万円以上',
+    description: '鉄道貨物の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '75',
+    title: '自動車ミラー',
+    company: '村上開明堂',
+    location: '広島',
+    salary: '月収30万円以上',
+    description: '自動車ミラーの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '76',
+    title: 'パソコン製造',
+    company: 'NEC',
+    location: '東京',
+    salary: '月収32万円以上',
+    description: 'パソコン製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '77',
+    title: '歯磨き粉製造',
+    company: 'サンスター',
+    location: '大阪',
+    salary: '月収27万円以上',
+    description: '歯磨き粉製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '78',
+    title: '港湾物流',
+    company: '日本郵船',
+    location: '神戸',
+    salary: '月収29万円以上',
+    description: '港湾物流の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '79',
+    title: '自動車ランプ',
+    company: '小糸製作所',
+    location: '愛知',
+    salary: '月収31万円以上',
+    description: '自動車ランプの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '80',
+    title: 'デジタルカメラ製造',
+    company: 'キヤノン',
+    location: '東京',
+    salary: '月収33万円以上',
+    description: 'デジタルカメラ製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '81',
+    title: 'シャンプー製造',
+    company: '花王',
+    location: '神奈川',
+    salary: '月収26万円以上',
+    description: 'シャンプー製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '82',
+    title: '国際配送',
+    company: 'DHL',
+    location: '東京',
+    salary: '月収30万円以上',
+    description: '国際配送の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '83',
+    title: '自動車ワイパー',
+    company: '日本ワイパーブレード',
+    location: '愛知',
+    salary: '月収28万円以上',
+    description: '自動車ワイパーの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '84',
+    title: 'オーディオ機器製造',
+    company: 'パイオニア',
+    location: '東京',
+    salary: '月収31万円以上',
+    description: 'オーディオ機器製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '85',
+    title: '化粧水製造',
+    company: '資生堂',
+    location: '神奈川',
+    salary: '月収27万円以上',
+    description: '化粧水製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '86',
+    title: '航空貨物',
+    company: '日本航空',
+    location: '羽田',
+    salary: '月収29万円以上',
+    description: '航空貨物の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '87',
+    title: '自動車ホーン',
+    company: '日本ホーン',
+    location: '愛知',
+    salary: '月収30万円以上',
+    description: '自動車ホーンの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '88',
+    title: 'ビデオカメラ製造',
+    company: 'ソニー',
+    location: '東京',
+    salary: '月収32万円以上',
+    description: 'ビデオカメラ製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '89',
+    title: 'マスク製造',
+    company: 'ユニ・チャーム',
+    location: '東京',
+    salary: '月収25万円以上',
+    description: 'マスク製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '90',
+    title: '海上輸送',
+    company: '川崎汽船',
+    location: '神戸',
+    salary: '月収28万円以上',
+    description: '海上輸送の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '91',
+    title: '自動車アンテナ',
+    company: '原田工業',
+    location: '愛知',
+    salary: '月収29万円以上',
+    description: '自動車アンテナの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '92',
+    title: 'プロジェクター製造',
+    company: 'エプソン',
+    location: '長野',
+    salary: '月収31万円以上',
+    description: 'プロジェクター製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '93',
+    title: 'ティッシュ製造',
+    company: '大王製紙',
+    location: '愛媛',
+    salary: '月収26万円以上',
+    description: 'ティッシュ製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '94',
+    title: '鉄道貨物',
+    company: 'JR貨物',
+    location: '名古屋',
+    salary: '月収27万円以上',
+    description: '鉄道貨物の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '95',
+    title: '自動車スピーカー',
+    company: 'パイオニア',
+    location: '愛知',
+    salary: '月収30万円以上',
+    description: '自動車スピーカーの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '96',
+    title: 'スキャナー製造',
+    company: 'キヤノン',
+    location: '東京',
+    salary: '月収32万円以上',
+    description: 'スキャナー製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '97',
+    title: 'トイレットペーパー製造',
+    company: '王子製紙',
+    location: '静岡',
+    salary: '月収25万円以上',
+    description: 'トイレットペーパー製造の経験者歓迎。',
+    category: '製造業',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '98',
+    title: '港湾物流',
+    company: '日本郵船',
+    location: '横浜',
+    salary: '月収29万円以上',
+    description: '港湾物流の経験者歓迎。',
+    category: '物流業界',
+    features: ['経験者歓迎', '高収入', '交通費支給']
+  },
+  {
+    id: '99',
+    title: '自動車ナビゲーション',
+    company: 'パイオニア',
+    location: '愛知',
+    salary: '月収31万円以上',
+    description: '自動車ナビゲーションの経験者歓迎。',
+    category: '自動車業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
+  },
+  {
+    id: '100',
+    title: 'スマートウォッチ製造',
+    company: 'ソニー',
+    location: '東京',
+    salary: '月収33万円以上',
+    description: 'スマートウォッチ製造の経験者歓迎。',
+    category: '電子機器業界',
+    features: ['経験者歓迎', '高収入', '福利厚生充実']
   }
 ]
 
@@ -531,5 +1031,8 @@ export const features = [
   '福利厚生充実',
   '交通費支給',
   '体力仕事',
-  '高収入'
+  '高収入',
+  '精密作業',
+  '寮付き',
+  '未経験・ブランクOK'
 ] 

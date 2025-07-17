@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import FavoriteButton from '@/components/FavoriteButton';
+import { categories, features } from '@/data/jobs';
 
 interface Job {
   id: string;
@@ -33,6 +34,8 @@ export default function JobsListClient({
 }: JobsListClientProps) {
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
   const [searchTerm, setSearchTerm] = useState(searchQuery);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
 
@@ -50,8 +53,8 @@ export default function JobsListClient({
     try {
       const params = new URLSearchParams();
       if (searchTerm) params.append('search', searchTerm);
-      if (category) params.append('category', category);
-      if (feature) params.append('feature', feature);
+      if (selectedCategory) params.append('category', selectedCategory);
+      if (selectedFeatures.length > 0) selectedFeatures.forEach(f => params.append('feature', f));
       params.append('page', '1');
       
       const response = await fetch(`/api/jobs?${params.toString()}`);
@@ -68,14 +71,26 @@ export default function JobsListClient({
     }
   };
 
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category === selectedCategory ? '' : category);
+  };
+
+  const handleFeatureToggle = (feature: string) => {
+    setSelectedFeatures(prev => 
+      prev.includes(feature) 
+        ? prev.filter(f => f !== feature)
+        : [...prev, feature]
+    );
+  };
+
   const handlePageChange = async (page: number) => {
     setIsLoading(true);
     
     try {
       const params = new URLSearchParams();
       if (searchTerm) params.append('search', searchTerm);
-      if (category) params.append('category', category);
-      if (feature) params.append('feature', feature);
+      if (selectedCategory) params.append('category', selectedCategory);
+      if (selectedFeatures.length > 0) selectedFeatures.forEach(f => params.append('feature', f));
       params.append('page', page.toString());
       
       const response = await fetch(`/api/jobs?${params.toString()}`);
@@ -92,6 +107,12 @@ export default function JobsListClient({
     }
   };
 
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedCategory('');
+    setSelectedFeatures([]);
+  };
+
   return (
     <>
       <Header />
@@ -105,12 +126,12 @@ export default function JobsListClient({
           </Link>
           <span className="mx-2 text-gray-400">/</span>
           <span className="text-blue-600">求人一覧</span>
-          {(category || feature) && (
+          {(selectedCategory || selectedFeatures.length > 0) && (
             <>
               <span className="mx-2 text-gray-400">/</span>
               <span className="text-blue-600">
-                {category && `業界: ${category}`}
-                {feature && `特徴: ${feature}`}
+                {selectedCategory && `業界: ${selectedCategory}`}
+                {selectedFeatures.length > 0 && `特徴: ${selectedFeatures.join(', ')}`}
               </span>
             </>
           )}
@@ -124,14 +145,14 @@ export default function JobsListClient({
           <p className="text-xl text-gray-600">
             {totalJobs}件の求人情報から、あなたにぴったりのお仕事を見つけましょう
           </p>
-          {(category || feature) && (
+          {(selectedCategory || selectedFeatures.length > 0 || searchTerm) && (
             <div className="mt-4">
-              <Link 
-                href="/jobs" 
+              <button 
+                onClick={clearFilters}
                 className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
               >
                 ✕ フィルターをクリア
-              </Link>
+              </button>
             </div>
           )}
         </div>
@@ -167,6 +188,77 @@ export default function JobsListClient({
               </button>
             </form>
           </div>
+
+          {/* カテゴリフィルター */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-gray-700">カテゴリ</h3>
+            <div className="flex flex-wrap gap-2">
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    selectedCategory === cat
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 特徴フィルター */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-gray-700">特徴</h3>
+            <div className="flex flex-wrap gap-2">
+              {features.map(feat => (
+                <button
+                  key={feat}
+                  onClick={() => handleFeatureToggle(feat)}
+                  className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                    selectedFeatures.includes(feat)
+                      ? 'bg-orange-500 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                  }`}
+                >
+                  {feat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 選択されたフィルター表示 */}
+          {(selectedCategory || selectedFeatures.length > 0) && (
+            <div className="bg-white rounded-lg p-4 border border-gray-200">
+              <h4 className="text-sm font-medium text-gray-700 mb-2">選択中のフィルター:</h4>
+              <div className="flex flex-wrap gap-2">
+                {selectedCategory && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
+                    業界: {selectedCategory}
+                    <button
+                      onClick={() => setSelectedCategory('')}
+                      className="ml-2 text-blue-600 hover:text-blue-800"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                )}
+                {selectedFeatures.map(feat => (
+                  <span key={feat} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-orange-100 text-orange-800">
+                    {feat}
+                    <button
+                      onClick={() => handleFeatureToggle(feat)}
+                      className="ml-2 text-orange-600 hover:text-orange-800"
+                    >
+                      ✕
+                    </button>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* 求人一覧 */}
@@ -181,12 +273,12 @@ export default function JobsListClient({
               <div className="text-6xl mb-4">🔍</div>
               <h3 className="text-2xl font-bold text-gray-800 mb-2">該当する求人が見つかりません</h3>
               <p className="text-gray-600 mb-6">条件を変更して再度お試しください</p>
-              <Link 
-                href="/jobs" 
+              <button 
+                onClick={clearFilters}
                 className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
               >
                 全ての求人を見る
-              </Link>
+              </button>
             </div>
           ) : (
             <div className="space-y-6">

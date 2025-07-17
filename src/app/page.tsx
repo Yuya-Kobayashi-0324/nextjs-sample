@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import { jobs, categories, features } from '@/data/jobs'
+import { articles } from '@/data/articles'
 import Header from '@/components/Header'
 import FavoriteButton from '@/components/FavoriteButton'
 
 export default function Home() {
   const featuredJobs = jobs.slice(0, 3)
+  const latestArticles = articles.slice(0, 3)
 
   return (
     <>
@@ -29,12 +31,20 @@ export default function Home() {
           <p className="text-xl mb-8 text-white/95 drop-shadow-lg">
             未経験OK、寮付き、日払い対応の派遣求人情報
           </p>
-          <Link 
-            href="/jobs" 
-            className="inline-block bg-white/95 backdrop-blur-sm text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-white transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-          >
-            求人一覧を見る
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/jobs" 
+              className="inline-block bg-white/95 backdrop-blur-sm text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-white transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+            >
+              求人一覧を見る
+            </Link>
+            <Link 
+              href="/articles" 
+              className="inline-block bg-green-600 backdrop-blur-sm text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+            >
+              記事を読む
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -79,6 +89,60 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 最新記事 */}
+        <section className="mb-16">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+              最新記事
+            </h2>
+            <Link 
+              href="/articles" 
+              className="text-green-600 hover:text-green-700 font-semibold transition-colors"
+            >
+              記事一覧を見る →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {latestArticles.map(article => (
+              <Link
+                key={article.id}
+                href={`/articles/${article.id}`}
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group"
+              >
+                <div className="p-6">
+                  <div className="mb-4">
+                    <span className="inline-block bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+                      {article.category}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors line-clamp-2">
+                    {article.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    {article.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between text-sm text-gray-500">
+                    <span>📅 {article.publishedAt}</span>
+                    <span>⏱️ {article.readTime}分</span>
+                  </div>
+                  <div className="mt-4">
+                    <div className="flex flex-wrap gap-1">
+                      {article.tags.slice(0, 2).map(tag => (
+                        <span
+                          key={tag}
+                          className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* カテゴリ別求人 */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
@@ -119,19 +183,27 @@ export default function Home() {
         </section>
 
         {/* CTA */}
-        <section className="bg-gray-50 rounded-2xl p-12 text-center">
+        <section className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-12 text-center border border-blue-100">
           <h2 className="text-3xl font-bold mb-4 text-gray-800">
             まずは求人一覧をチェック！
           </h2>
           <p className="text-gray-600 mb-8 text-lg">
             豊富な求人情報から、あなたにぴったりのお仕事を見つけましょう
           </p>
-          <Link 
-            href="/jobs" 
-            className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-          >
-            求人一覧を見る
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/jobs" 
+              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              求人一覧を見る
+            </Link>
+            <Link 
+              href="/articles" 
+              className="inline-block bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+            >
+              記事を読む
+            </Link>
+          </div>
         </section>
       </main>
 
@@ -150,6 +222,12 @@ export default function Home() {
               className="bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors"
             >
               求人一覧
+            </Link>
+            <Link 
+              href="/articles" 
+              className="bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+            >
+              記事一覧
             </Link>
             <Link 
               href="/about" 

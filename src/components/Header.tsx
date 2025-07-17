@@ -74,6 +74,14 @@ export default function Header() {
                 求人一覧
               </Link>
               <Link 
+                href="/articles" 
+                className={`font-medium transition-colors ${
+                  pathname === '/articles' ? 'text-green-600' : 'text-gray-700 hover:text-green-600'
+                }`}
+              >
+                記事一覧
+              </Link>
+              <Link 
                 href="/favorites" 
                 className={`font-medium transition-colors ${
                   pathname === '/favorites' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'
@@ -192,6 +200,15 @@ export default function Header() {
               }`}
             >
               求人一覧
+            </Link>
+            <Link 
+              href="/articles" 
+              onClick={handleLinkClick}
+              className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
+                pathname === '/articles' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600 hover:bg-gray-50'
+              }`}
+            >
+              記事一覧
             </Link>
             <Link 
               href="/favorites" 

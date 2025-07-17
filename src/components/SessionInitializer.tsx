@@ -1,6 +1,14 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+
+// dataLayerの型定義
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
 
 // CookieからUUIDを取得する関数
 function getCookieValue(name: string): string | null {
@@ -28,7 +36,26 @@ function calculateGrouping(uuid: string) {
   }
 }
 
+// dataLayerにページビューイベントを送信する関数
+function pushPageViewEvent() {
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'custom_page_view',
+      'page_location': window.location.href,
+      'page_pathname': window.location.pathname
+    });
+  }
+}
+
 export default function SessionInitializer() {
+  const pathname = usePathname();
+
+  // ページ遷移時にdataLayerにイベントをpush
+  useEffect(() => {
+    pushPageViewEvent();
+  }, [pathname]);
+
   useEffect(() => {
     const initSession = async () => {
       try {
