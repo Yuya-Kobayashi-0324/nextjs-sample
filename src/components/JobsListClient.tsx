@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import FavoriteButton from '@/components/FavoriteButton';
 import { categories, features } from '@/data/jobs';
+import DynamicJobCarousel from '@/components/DynamicJobCarousel';
+import DynamicArticleCarousel from '@/components/DynamicArticleCarousel';
 
 interface Job {
   id: string;
@@ -376,6 +378,20 @@ export default function JobsListClient({
             </p>
           </section>
         )}
+
+        {/* 動的コンテンツ - 人気求人 */}
+        <DynamicJobCarousel 
+          title="人気求人"
+          apiUrl="/api/recommendations/jobs?limit=6"
+          className="mt-16"
+        />
+
+        {/* 動的コンテンツ - おすすめ記事 */}
+        <DynamicArticleCarousel 
+          title="おすすめ記事"
+          apiUrl="/api/recommendations/articles?limit=3"
+          className="mt-16"
+        />
       </main>
     </>
   );

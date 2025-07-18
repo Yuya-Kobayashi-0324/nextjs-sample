@@ -3,6 +3,8 @@ import { jobs, categories, features } from '@/data/jobs'
 import { articles } from '@/data/articles'
 import Header from '@/components/Header'
 import FavoriteButton from '@/components/FavoriteButton'
+import DynamicJobCarousel from '@/components/DynamicJobCarousel'
+import DynamicArticleCarousel from '@/components/DynamicArticleCarousel'
 
 export default function Home() {
   const featuredJobs = jobs.slice(0, 3)
@@ -181,6 +183,20 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* 動的コンテンツ - おすすめ求人 */}
+        <DynamicJobCarousel 
+          title="おすすめ求人"
+          apiUrl="/api/recommendations/jobs?limit=6"
+          className="mb-16"
+        />
+
+        {/* 動的コンテンツ - おすすめ記事 */}
+        <DynamicArticleCarousel 
+          title="おすすめ記事"
+          apiUrl="/api/recommendations/articles?limit=3"
+          className="mb-16"
+        />
 
         {/* CTA */}
         <section className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-12 text-center border border-blue-100">

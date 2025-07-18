@@ -3,6 +3,8 @@
 import { jobs } from '@/data/jobs'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import DynamicJobCarousel from '@/components/DynamicJobCarousel'
+import DynamicArticleCarousel from '@/components/DynamicArticleCarousel'
 
 type Props = { 
   params: Promise<{ id: string }> 
@@ -289,6 +291,20 @@ export default function JobDetail({ params }: Props) {
             )}
           </div>
         </div>
+
+        {/* 動的コンテンツ - 関連求人 */}
+        <DynamicJobCarousel 
+          title="関連求人"
+          apiUrl={`/api/related/jobs?jobId=${jobId}&limit=3`}
+          className="mt-16"
+        />
+
+        {/* 動的コンテンツ - おすすめ記事 */}
+        <DynamicArticleCarousel 
+          title="おすすめ記事"
+          apiUrl={`/api/recommendations/articles?limit=3&category=${job.category}`}
+          className="mt-16"
+        />
 
         {/* 戻るボタン */}
         <div className="text-center mt-12">
