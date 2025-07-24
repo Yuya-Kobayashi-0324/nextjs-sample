@@ -1,30 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { jobs } from '@/data/jobs';
 
-// 入力値ベースの10桁英数字ハッシュ生成（ログインページと同じロジック）
-const generateHash = (input: string): string => {
-  let hash = 0;
-  for (let i = 0; i < input.length; i++) {
-    const char = input.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // 32bit整数に変換
-  }
-  
-  // 10桁の英数字に変換
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  const hashStr = Math.abs(hash).toString();
-  
-  for (let i = 0; i < 10; i++) {
-    const index = parseInt(hashStr[i % hashStr.length] || '0') + i;
-    result += chars[index % chars.length];
-  }
-  
-  return result;
-};
-
 // ユーザーIDに基づいて求人を選択する関数
-const getPersonalizedJobs = (userId: string, limit: number = 5): any[] => {
+const getPersonalizedJobs = (userId: string, limit: number = 5): typeof jobs => {
   // ユーザーIDを数値に変換してシードとして使用
   let seed = 0;
   for (let i = 0; i < userId.length; i++) {
