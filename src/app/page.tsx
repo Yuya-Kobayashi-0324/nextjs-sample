@@ -155,6 +155,11 @@ export default function Home() {
               )}
             </div>
 
+            {/* OptimizeNext用 - おすすめ一覧ボタン挿入位置 */}
+            <div id="optimizenext-recommend-button-container" className="mb-6">
+              {/* ここにOptimizeNextがおすすめ一覧ボタンを挿入します */}
+            </div>
+
             {/* 選択されたフィルター表示 */}
             {(selectedCategory || selectedFeatures.length > 0) && (
               <div className="mb-6 bg-blue-50 rounded-lg p-4 border border-blue-200">
@@ -222,6 +227,11 @@ export default function Home() {
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* OptimizeNext用 - パーソナライズレコメンド枠挿入位置 */}
+        <div id="optimizenext-personalized-recommend-container" className="mb-16">
+          {/* ここにOptimizeNextがパーソナライズレコメンド枠を挿入します */}
+        </div>
+
         {/* オススメ求人特集 */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
